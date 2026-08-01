@@ -8,7 +8,9 @@ license = { file = "LICENSE" }
 authors = [
     { name = "Przemyslaw Senderski" }
 ]
-dependencies = []
+dependencies = [
+    "pyyaml>=6.0.3",
+]
 
 [dependency-groups]
 dev = [
