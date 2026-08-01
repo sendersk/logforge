@@ -2,7 +2,7 @@
 
 import logging
 
-from logforge.logging.setup import configure_logging
+from logforge.bootstrap import bootstrap
 
 logger = logging.getLogger(__name__)
 
@@ -10,9 +10,13 @@ logger = logging.getLogger(__name__)
 def main() -> None:
     """Start the LogForge application."""
 
-    configure_logging()
+    settings = bootstrap()
 
-    logger.info("LogForge application started")
+    logger.info(
+        "Application '%s' started in %s mode.",
+        settings.application.name,
+        settings.application.environment,
+    )
 
 
 if __name__ == "__main__":
