@@ -11,4 +11,4 @@ def test_application_starts(caplog) -> None:
 
     main()
 
-    assert "LogForge application started" in caplog.text
+    assert "Application 'logforge' started in development mode." in caplog.text
