@@ -1,0 +1,6 @@
+application:
+  name: logforge
+  environment: development
+
+logging:
+  level: INFO
