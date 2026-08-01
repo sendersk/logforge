@@ -1,0 +1,104 @@
+# =========================
+# Python
+# =========================
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Python packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# =========================
+# uv
+# =========================
+
+# uv cache
+.uv/
+
+# =========================
+# Testing
+# =========================
+
+.pytest_cache/
+
+.coverage
+.coverage.*
+htmlcov/
+
+# =========================
+# Type checking
+# =========================
+
+.mypy_cache/
+
+# =========================
+# Linting / Formatting
+# =========================
+
+.ruff_cache/
+
+# =========================
+# IDEs
+# =========================
+
+.vscode/
+.idea/
+
+# =========================
+# Operating System
+# =========================
+
+.DS_Store
+Thumbs.db
+
+# =========================
+# Environment variables
+# =========================
+
+.env
+.env.*
+!.env.example
+
+# =========================
+# Logs
+# =========================
+
+*.log
+logs/
+
+# =========================
+# Application data
+# =========================
+
+data/
+tmp/
+temp/
+
+# =========================
+# Docker
+# =========================
+
+docker-compose.override.yml
+
+# =========================
+# Coverage / Reports
+# =========================
+
+reports/
+
+# =========================
+# Local configuration
+# =========================
+
+config/local.yaml
