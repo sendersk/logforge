@@ -3,7 +3,7 @@
 from dataclasses import dataclass
 
 
-@dataclass(slots=Ture):
+@dataclass(slots=True)
 class AnalysisReport:
     """Summary of log analysis."""
 
