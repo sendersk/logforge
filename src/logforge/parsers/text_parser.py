@@ -1,17 +1,19 @@
-"""Plain text parser."""
+"""Plain text log parser."""
 
-from datetime import datetime
-from pathlib import Path
 from typing import TextIO
 
-from logforge.domain.enums import LogLevel
 from logforge.domain.log_entry import LogEntry
 from logforge.parsers.base import BaseParser
-from logforge.parsers.exceptions import ParsingError
+from logforge.parsers.line_parsers.default import DefaultLineParser
 
 
 class PlainTextParser(BaseParser):
     """Parser for plain text log files."""
+
+    def __init__(self) -> None:
+        """Initialize the parser."""
+
+        self._line_parser = DefaultLineParser()
 
     def parse(self, stream: TextIO) -> list[LogEntry]:
         """Parse plain text log entries."""
@@ -24,36 +26,11 @@ class PlainTextParser(BaseParser):
             if not line:
                 continue
 
-            try:
-                parts = line.split(maxsplit=4)
+            entry = self._line_parser.parse(
+                line=line,
+                line_number=line_number,
+            )
 
-                if len(parts) != 5:
-                    raise ParsingError(
-                        f"Invalid log entry at line {line_number}"
-                    )
-
-                timestamp = datetime.fromisoformat(
-                    f"{parts[0]} {parts[1]}"
-                )
-
-                level = LogLevel(parts[2])
-                service = parts[3]
-                message = parts[4]
-
-                entries.append(
-                    LogEntry(
-                        timestamp=timestamp,
-                        level=level,
-                        service=service,
-                        message=message,
-                        source=Path("<stream>"),
-                        line_number=line_number,
-                    )
-                )
-
-            except Exception as error:
-                raise ParsingError(
-                    f"Invalid log entry at line {line_number}"
-                ) from error
+            entries.append(entry)
 
         return entries
