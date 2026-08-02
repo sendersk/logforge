@@ -5,7 +5,6 @@ from pathlib import Path
 from logforge.config.loader import load_config
 from logforge.logging.setup import configure_logging
 
-
 CONFIG_PATH = Path("config/app.yaml")
 
 
