@@ -2,7 +2,6 @@ from pathlib import Path
 
 import pytest
 
-from logforge.domain.log_entry import LogEntry
 from logforge.parsers.base import BaseParser
 from logforge.parsers.exceptions import UnsupportedFileTypeError
 from logforge.parsers.registry import ParserRegistry
