@@ -25,16 +25,25 @@ class PlainTextParser(BaseParser):
                 continue
 
             try:
-                timestamp_str, level, service, message = line.split(
-                    maxsplit=4,
+                parts = line.split(maxsplit=4)
+
+                if len(parts) != 5:
+                    raise ParsingError(
+                        f"Invalid log entry at line {line_number}"
+                    )
+
+                timestamp = datetime.fromisoformat(
+                    f"{parts[0]} {parts[1]}"
                 )
 
-                timestamp = datetime.fromisoformat(timestamp_str)
+                level = LogLevel(parts[2])
+                service = parts[3]
+                message = parts[4]
 
                 entries.append(
                     LogEntry(
                         timestamp=timestamp,
-                        level=LogLevel(level),
+                        level=level,
                         service=service,
                         message=message,
                         source=Path("<stream>"),
