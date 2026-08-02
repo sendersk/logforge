@@ -1,4 +1,4 @@
-"""Application configuration models."""
+"""Application configuration domain."""
 
 from pydantic import BaseModel
 
