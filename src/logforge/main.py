@@ -1,22 +1,14 @@
 """Application entry point for LogForge."""
 
-import logging
-
 from logforge.bootstrap import bootstrap
-
-logger = logging.getLogger(__name__)
+from logforge.cli.app import app
 
 
 def main() -> None:
-    """Start the LogForge application."""
+    """Initialize the application and start the CLI."""
 
-    settings = bootstrap()
-
-    logger.info(
-        "Application '%s' started in %s mode.",
-        settings.application.name,
-        settings.application.environment,
-    )
+    bootstrap()
+    app()
 
 
 if __name__ == "__main__":
