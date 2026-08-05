@@ -2,10 +2,13 @@
 
 import typer
 
-from logforge.cli.commands import analyze
+from logforge.cli import commands
+
 
 app = typer.Typer(
-    help="LogForge - Enterprise log analysis toolkit.",
+    name="logforge",
+    help="Enterprise log analysis toolkit.",
+    no_args_is_help=True,
 )
 
-app.command()(analyze)
+app.command(name="analyze")(commands.analyze)
