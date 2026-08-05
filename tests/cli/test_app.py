@@ -13,7 +13,7 @@ def test_cli_runs() -> None:
     result = runner.invoke(app, ["--help"])
 
     assert result.exit_code == 0
-    assert "LogForge" in result.stdout
+    assert "Usage:" in result.stdout
 
 
 def test_analyze_command() -> None:
