@@ -1,28 +1,28 @@
 """Tests for application bootstrap."""
 
+from logforge.application.context import ApplicationContext
 from logforge.bootstrap import bootstrap
-from logforge.config.settings import Settings
 
 
-def test_bootstrap_returns_settings() -> None:
-    """Verify that bootstrap returns validated settings."""
+def test_bootstrap_returns_application_context() -> None:
+    """Verify that bootstrap returns an application context."""
 
-    settings = bootstrap()
+    context = bootstrap()
 
-    assert isinstance(settings, Settings)
+    assert isinstance(context, ApplicationContext)
 
 
 def test_bootstrap_loads_application_name() -> None:
-    """Verify that application settings are loaded."""
+    """Verify application name."""
 
-    settings = bootstrap()
+    context = bootstrap()
 
-    assert settings.application.name == "logforge"
+    assert context.settings.application.name == "logforge"
 
 
 def test_bootstrap_loads_environment() -> None:
-    """Verify that application environment is loaded."""
+    """Verify environment."""
 
-    settings = bootstrap()
+    context = bootstrap()
 
-    assert settings.application.environment == "development"
+    assert context.settings.application.environment == "development"
