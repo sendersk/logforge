@@ -29,7 +29,11 @@ def test_analyze_command(tmp_path: Path) ->None:
 
     result = runner.invoke(
         app,
-        ["analyze", str(log_file)],
+        [str(log_file)]
     )
 
-    assert result.exit_code == 0
+    assert result.exit_code == 0, (
+        f"\nstdout:\n{result.stdout}\n"
+        f"stderr:\n{result.stderr}\n"
+        f"exception:{result.exception}"
+    )

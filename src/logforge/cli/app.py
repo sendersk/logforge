@@ -2,8 +2,7 @@
 
 import typer
 
-from logforge.cli import commands
-
+from logforge.cli.commands import analyze
 
 app = typer.Typer(
     name="logforge",
@@ -11,4 +10,4 @@ app = typer.Typer(
     no_args_is_help=True,
 )
 
-app.command(name="analyze")(commands.analyze)
+app.command("analyze")(analyze)

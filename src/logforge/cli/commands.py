@@ -1,14 +1,28 @@
 """CLI commands."""
 
-from pathlib import Path
-
 import typer
+
+from pathlib import Path
+from typing import Annotated
+
 
 from logforge.application.use_cases.analyze_logs import AnalyzeLogUseCase
 from logforge.bootstrap import bootstrap
 
 
-def analyze(path: Path) -> None:
+def analyze(
+        path: Annotated[
+            Path,
+            typer.Argument(
+                exists=True,
+                file_okay=True,
+                dir_okay=False,
+                readable=True,
+                resolve_path=True,
+                help="Path to the log file."
+            ),
+        ],
+) -> None:
     """Analyze a log file."""
 
     context = bootstrap()
