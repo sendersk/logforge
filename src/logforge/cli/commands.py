@@ -1,10 +1,9 @@
 """CLI commands."""
 
-import typer
-
 from pathlib import Path
 from typing import Annotated
 
+import typer
 
 from logforge.application.use_cases.analyze_logs import AnalyzeLogUseCase
 from logforge.bootstrap import bootstrap

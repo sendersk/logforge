@@ -1,6 +1,7 @@
 """Smoke tests for the CLI."""
 
 from pathlib import Path
+
 from typer.testing import CliRunner
 
 from logforge.cli.app import app
