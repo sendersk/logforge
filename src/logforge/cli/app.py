@@ -10,4 +10,10 @@ app = typer.Typer(
     no_args_is_help=True,
 )
 
+
+@app.callback()
+def main() -> None:
+    """Logforge CLI."""
+
+
 app.command("analyze")(analyze)

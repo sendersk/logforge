@@ -13,16 +13,17 @@ def analyze(
         path: Annotated[
             Path,
             typer.Argument(
+                ...,
                 exists=True,
                 file_okay=True,
-                dir_okay=False,
+                dir_okay=True,
                 readable=True,
                 resolve_path=True,
-                help="Path to the log file."
+                help="Path to the log file or directory."
             ),
         ],
 ) -> None:
-    """Analyze a log file."""
+    """Analyze a log file or directory."""
 
     context = bootstrap()
 
