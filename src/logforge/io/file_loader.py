@@ -3,14 +3,20 @@
 from pathlib import Path
 from typing import TextIO
 
+from logforge.io.exceptions import FileLoadingError
+
 
 class FileLoader:
-    """Open text files for reading."""
+    """Load text files from the filesystem."""
 
     def open(self, path: Path) -> TextIO:
-        """Open a UTF-8 encoded text file."""
-
-        return path.open(
-            mode="r",
-            encoding="utf-8",
-        )
+        """Open a text file for reading."""
+        try:
+            return path.open(
+                mode="r",
+                encoding="utf-8",
+            )
+        except OSError as error:
+            raise FileLoadingError(
+                f"Unable to open file: {path}"
+            ) from error
