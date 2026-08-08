@@ -1,4 +1,4 @@
-"""Use case for log analysis."""
+"""Use cases for log analysis."""
 
 from pathlib import Path
 
@@ -7,7 +7,7 @@ from logforge.domain.analysis_report import AnalysisReport
 
 
 class AnalyzeLogUseCase:
-    """Analyze a single log file."""
+    """Analyze one or more log files."""
 
     def __init__(self, context: ApplicationContext) -> None:
         """Initialize the use case."""
@@ -18,7 +18,23 @@ class AnalyzeLogUseCase:
         self,
         path: Path,
     ) -> AnalysisReport:
-        """Analyze the specified log file."""
+        """Analyze a file or directory."""
+
+        files = self._context.file_discovery.discover(
+            path,
+            recursive=True,
+        )
+
+        report = AnalysisReport()
+
+        for file_path in files:
+            file_report = self._analyze_file(file_path)
+            report = report.merge(file_report)
+
+        return report
+
+    def _analyze_file(self, path: Path) -> AnalysisReport:
+        """Analyze a single log file."""
 
         parser = self._context.parser_registry.get(path)
 
