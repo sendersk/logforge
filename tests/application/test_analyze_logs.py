@@ -58,3 +58,41 @@ def test_analyze_multiple_log_files(tmp_path: Path) -> None:
     assert report.info_entries == 2
     assert report.warning_entries == 1
     assert report.error_entries == 1
+
+
+def test_analyze_empty_directory(tmp_path: Path) -> None:
+    """Verify that analyzing an empty directory returns an empty report."""
+
+    context = bootstrap()
+    use_case = AnalyzeLogUseCase(context)
+
+    report = use_case.execute(tmp_path)
+
+    assert report.total_entries == 0
+    assert report.debug_entries == 0
+    assert report.info_entries == 0
+    assert report.warning_entries == 0
+    assert report.error_entries == 0
+    assert report.critical_entries == 0
+
+
+def test_analyze_nested_directory(tmp_path: Path) -> None:
+    """Verify that nested log files are analyzed."""
+
+    nested_directory = tmp_path / "archive"
+    nested_directory.mkdir()
+
+    log_file = nested_directory / "application.log"
+
+    log_file.write_text(
+        "2026-08-02 10:17:11 ERROR app Database failure\n",
+        encoding="utf-8",
+    )
+
+    context = bootstrap()
+    use_case = AnalyzeLogUseCase(context)
+
+    report = use_case.execute(tmp_path)
+
+    assert report.total_entries == 1
+    assert report.error_entries == 1

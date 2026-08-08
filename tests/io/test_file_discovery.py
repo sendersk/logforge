@@ -111,3 +111,58 @@ def test_discovery_is_case_insensitive(tmp_path: Path) -> None:
     result = discovery.discover(log_file)
 
     assert result == [log_file]
+
+
+def test_discover_empty_directory(tmp_path: Path) -> None:
+    """Verify that an empty directory returns no files."""
+
+    discovery = LogFileDiscovery()
+
+    result = discovery.discover(tmp_path)
+
+    assert result == []
+
+
+def test_ignore_non_log_files_in_directory(tmp_path: Path) -> None:
+    """Verify that non-log files are ignored."""
+
+    log_file = tmp_path / "application.log"
+    text_file = tmp_path / "notes.txt"
+    config_file = tmp_path / "config.yaml"
+
+    log_file.touch()
+    text_file.touch()
+    config_file.touch()
+
+    discovery = LogFileDiscovery()
+
+    result = discovery.discover(tmp_path)
+
+    assert result == [log_file]
+
+
+def test_discover_nested_log_files_recursively(
+        tmp_path: Path,
+) -> None:
+    """Verify recursive discovery across multiple directory levels."""
+
+    first_directory = tmp_path / "services"
+    second_directory = first_directory / "archive"
+
+    first_directory.mkdir()
+    second_directory.mkdir()
+
+    first_log = first_directory / "application.log"
+    second_log = second_directory / "old.log"
+
+    first_log.touch()
+    second_log.touch()
+
+    discovery = LogFileDiscovery()
+
+    result = discovery.discover(
+        tmp_path,
+        recursive=True,
+    )
+
+    assert result == sorted([first_log, second_log])

@@ -71,3 +71,21 @@ def test_analyze_directory(tmp_path: Path) -> None:
     assert "Total entries : 2" in result.stdout
     assert "INFO          : 1" in result.stdout
     assert "ERROR         : 1" in result.stdout
+
+
+def test_analyze_empty_directory(tmp_path: Path) -> None:
+    """Verify that the CLI handles an empty directory."""
+
+    result = runner.invoke(
+        app,
+        ["analyze", str(tmp_path)],
+    )
+
+    assert result.exit_code == 0, (
+        f"\nstdout:\n{result.stdout}"
+        f"stderr:\n{result.stderr}"
+        f"exception:{result.exception}"
+    )
+
+    assert "Log Analysis Summary" in result.stdout
+    assert "Total entries : 0" in result.stdout
